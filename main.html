@@ -4,9 +4,38 @@
 
 <head>
 	<link rel="stylesheet" href="styles.css">
+	<style>
+		.input1{
+			border:2px solid black;
+			padding:10px;
+			margin:10px;
+		}
+		.input2{
+			border:2px solid black;
+			padding:10px;
+			margin:10px;
+		}
+		.btn{
+			background-color:black;
+			color:white;
+			text-align:center;
+		}
+	</style>
 </head>
 
 <body>
+	<div class="container">
+	<div >
+		Player 1<input type="text" id="player-1" class="input1" placeholder="Enter Name">
+	</div>
+	<div >
+		Player 2<input type="text" id="player-2" class="input2" placeholder="Enter Name">
+	</div>
+		<div >
+			<button type="submit" id="submit" onclick="game()" class="btn">Start Game</button>
+		</div>
+	</div>
+	<div class="message"></div>
 	<!-- the entire body must be written by student -->
     <script type="text/javascript" src="./script.js">
 </script>
