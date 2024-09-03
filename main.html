@@ -1,45 +1,38 @@
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Initial Input Form for Player Names -->
+      <div id="nameForm">
+        <h1>Tic Tac Toe</h1>
+        <input type="text" id="player-1" placeholder="Player 1" required />
+        <input type="text" id="player-2" placeholder="Player 2" required />
+        <button id="submit">Start Game</button>
+      </div>
 
-<html>
-
-<head>
-	<link rel="stylesheet" href="styles.css">
-	<style>
-		.input1{
-			border:2px solid black;
-			padding:10px;
-			margin:10px;
-		}
-		.input2{
-			border:2px solid black;
-			padding:10px;
-			margin:10px;
-		}
-		.btn{
-			background-color:black;
-			color:white;
-			text-align:center;
-		}
-	</style>
-</head>
-
-<body>
-	<div class="container">
-	<div >
-		Player 1<input type="text" id="player-1" class="input1" placeholder="Enter Name">
-	</div>
-	<div >
-		Player 2<input type="text" id="player-2" class="input2" placeholder="Enter Name">
-	</div>
-		<div >
-			<button type="submit" id="submit" onclick="game()" class="btn">Start Game</button>
-		</div>
-	</div>
-	<div class="message"></div>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
-
-</body>
-
+      <!-- Game Board -->
+      <div id="gameBoard" style="display: none">
+        <h1>Tic Tac Toe</h1>
+        <div class="message"></div>
+        <div class="board">
+          <div id="1" class="cell"></div>
+          <div id="2" class="cell"></div>
+          <div id="3" class="cell"></div>
+          <div id="4" class="cell"></div>
+          <div id="5" class="cell"></div>
+          <div id="6" class="cell"></div>
+          <div id="7" class="cell"></div>
+          <div id="8" class="cell"></div>
+          <div id="9" class="cell"></div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>
