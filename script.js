@@ -1,3 +1,5 @@
+document.addEventListener(‘DOMContentLoaded’, () => {
+
 const submitButton = document.getElementById('submit');
 
 const formSection = document.getElementById('form-section');
