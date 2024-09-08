@@ -1,57 +1,83 @@
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin-top: 50px;
+
+font-family: Arial, sans-serif;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+height: 100vh;
+
+margin: 0;
+
+background-color: #f0f0f0;
 }
 
 .container {
-  width: 300px;
-  margin: 0 auto;
+
+text-align: center;
 }
 
-h1 {
-  font-family: "Marker Felt", cursive;
-  font-size: 36px;
-  margin-bottom: 20px;
+.form-section input {
+
+margin: 10px;
+
+padding: 10px;
+
+font-size: 16px;
 }
 
-input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  box-sizing: border-box;
-  font-size: 18px;
-  border: 2px solid black;
+#submit {
+
+padding: 10px 20px;
+
+font-size: 16px;
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 18px;
-  cursor: pointer;
-  background-color: white;
-  border: 2px solid black;
+.game-section {
+
+display: none;
 }
 
 .board {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
-  margin-top: 20px;
+
+display: grid;
+
+grid-template-columns: repeat(3, 100px);
+
+grid-template-rows: repeat(3, 100px);
+
+gap: 5px;
+
+margin: 20px auto;
 }
 
 .cell {
-  width: 80px;
-  height: 80px;
-  background-color: pink;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  font-family: "Marker Felt", cursive;
-  cursor: pointer;
+
+width: 100px;
+
+height: 100px;
+
+background-color: #fff;
+
+border: 1px solid #000;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+font-size: 24px;
+
+cursor: pointer;
 }
 
 .message {
-  font-size: 20px;
-  margin-top: 20px;
+
+margin: 20px;
+
+font-size: 18px;
 }
