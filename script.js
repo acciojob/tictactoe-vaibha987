@@ -1,132 +1,100 @@
-document.addEventListener('DOMContentLoaded', () => {
-
-const submitButton = document.getElementById('submit');
-
-const formSection = document.getElementById('form-section');
-
-const gameSection = document.getElementById('game-section');
-
-const messageDiv = document.getElementById('message');
-
-
-
-let currentPlayer = 'x'; // 'X' starts first
-
-let player1Name = '';
-
-let player2Name = '';
-
-
-
-const cells = document.querySelectorAll('.cell');
-
-
-
-// Set initial content for cell1
-
-// document.getElementById('1').textContent = 'X';
-
-
-
-const checkWin = () => {
-
-    const winPatterns = [
-
-        [1, 2, 3], [4, 5, 6], [7, 8, 9], // rows
-
-        [1, 4, 7], [2, 5, 8], [3, 6, 9], // columns
-
-        [1, 5, 9], [3, 5, 7] // diagonals
-
-    ];
-
-    
-
-    for (const pattern of winPatterns) {
-
-        const [a, b, c] = pattern;
-
-        if (document.getElementById(a).textContent &&
-
-            document.getElementById(a).textContent === document.getElementById(b).textContent &&
-
-            document.getElementById(a).textContent === document.getElementById(c).textContent) {
-
-            return document.getElementById(a).textContent;
-
-        }
-
+const statusDisplay = document.querySelector(".game--status");
+// console.log(statusDisplay);
+ 
+let gameActive = true;
+let currentPlayer = "X";
+let gameState = ["", "", "", "", "", "", "", "", ""];
+ 
+const winningMessage = () =>
+  `Congratulations! Player${currentPlayer === "X" ? 1 : 2} wins.`;
+ 
+const drawMessage = "Draw!";
+const currentPlayerTurn = () =>
+  `It's Player${currentPlayer === "X" ? 1 : 2}'s turn`;
+ 
+statusDisplay.innerHTML = currentPlayerTurn();
+ 
+const winningConditions = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+ 
+// document
+//   .querySelectorAll(".cell")
+//   .forEach((cell) => cell.addEventListener("click", handleCellClick));
+ 
+// fixed by Event Delegation
+// Instead of adding listener to individual child elements, add a listener to the parent element
+// then access the clicked child through event.target
+ 
+document
+  .querySelector(".game--container")
+  .addEventListener("click", handleCellClick);
+ 
+document
+  .querySelector(".game--restart")
+  .addEventListener("click", handleRestartGame);
+ 
+function handleCellClick(clickedCellEvent) {
+  if (clickedCellEvent.target.classList.contains("cell")) {
+    const clickedCell = clickedCellEvent.target;
+    const clickedCellIndex = parseInt(clickedCell.id) - 1;
+    if (!gameActive || gameState[clickedCellIndex] !== "") return;
+    handleCellPlayed(clickedCell, clickedCellIndex);
+    handleResultValidation();
+  }
+}
+ 
+function handleRestartGame() {
+  gameActive = true;
+  currentPlayer = "X";
+  gameState = ["", "", "", "", "", "", "", "", ""];
+  statusDisplay.innerHTML = currentPlayerTurn();
+  document.querySelectorAll(".cell").forEach((cell) => (cell.innerHTML = ""));
+}
+ 
+function handleCellPlayed(clickedCell, clickedCellIndex) {
+  gameState[clickedCellIndex] = currentPlayer;
+  clickedCell.innerHTML = currentPlayer;
+}
+ 
+function handleResultValidation() {
+  let roundWon = false;
+  for (let i = 0; i < winningConditions.length; i++) {
+    const winCondition = winningConditions[i];
+    let a = gameState[winCondition[0]];
+    let b = gameState[winCondition[1]];
+    let c = gameState[winCondition[2]];
+    if (a === "" || b === "" || c === "") continue;
+    if (a === b && b === c) {
+      roundWon = true;
+      break;
     }
-
-    
-
-    return [...cells].every(cell => cell.textContent) ? 'draw' : null;
-
-};
-
-
-
-const handleClick = (e) => {
-
-    const cell = e.target;
-
-    if (!cell.textContent) { // Ensure the cell is empty
-
-        cell.textContent = currentPlayer;
-
-        const winner = checkWin();
-
-        if (winner) {
-
-            if (winner === 'draw') {
-
-                messageDiv.textContent = "It's a draw!";
-
-            } else {
-
-                messageDiv.textContent = `${winner === 'x' ? player1Name : player2Name} congratulations you won!`;
-
-            }
-
-            cells.forEach(cell => cell.removeEventListener('click', handleClick)); // Stop further clicks
-
-        } else {
-
-            currentPlayer = currentPlayer === 'x' ? 'o' : 'x'; // Switch player
-
-            messageDiv.textContent = `${currentPlayer === 'x' ? player1Name : player2Name}, you're up!`;
-
-        }
-
-    }
-
-};
-
-
-
-submitButton.addEventListener('click', () => {
-
-    player1Name = document.getElementById('player1').value;
-
-    player2Name = document.getElementById('player2').value;
-
-    
-
-    if (player1Name && player2Name) {
-
-        formSection.style.display = 'none'; // Hide the form
-
-        gameSection.style.display = 'block'; // Show the game
-
-        messageDiv.textContent = `${player1Name}, you're up!`;
-
-        cells.forEach(cell => cell.addEventListener('click', handleClick)); // Attach click handlers
-
-    } else {
-
-        alert('Please enter names for both players.');
-
-    }
-
-});
-});
+  }
+  // checking if someone won
+  if (roundWon) {
+    statusDisplay.innerHTML = winningMessage();
+    gameActive = false;
+    return;
+  }
+ 
+  let roundDraw = !gameState.includes("");
+  if (roundDraw) {
+    statusDisplay.innerHTML = drawMessage;
+    gameActive = false;
+    return;
+  }
+  // keep the game going!
+  handlePlayerChange();
+}
+ 
+function handlePlayerChange() {
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+  statusDisplay.innerHTML = currentPlayerTurn();
+}
