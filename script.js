@@ -1,19 +1,34 @@
-const statusDisplay = document.querySelector(".game--status");
-// console.log(statusDisplay);
+document.getElementById('submit').addEventListener('click', function() {
+    player1 = document.getElementById('player-1').value;
+    player2 = document.getElementById('player-2').value;
  
+    // Validate the player names
+    if (player1 === '' || player2 === '') {
+        alert('Please enter both player names');
+        return;
+    }
+
+    // Hide the name input section and show the game section
+    document.querySelector('section').style.display = 'none';
+    document.querySelector('.game--container').style.display = 'grid';
+
+    // Display the current player's turn
+    document.querySelector('.game--status').textContent = `${player1}'s turn`;
+});
+
+const statusDisplay = document.querySelector('.game--status');
+
 let gameActive = true;
-let currentPlayer = "X";
-let gameState = ["", "", "", "", "", "", "", "", ""];
- 
-const winningMessage = () =>
-  `Congratulations! Player${currentPlayer === "X" ? 1 : 2} wins.`;
- 
-const drawMessage = "Draw!";
-const currentPlayerTurn = () =>
-  `It's Player${currentPlayer === "X" ? 1 : 2}'s turn`;
- 
+let currentPlayer = 'X';
+let gameState = ['', '', '', '', '', '', '', '', ''];
+
+const winningMessage = () => `Player ${currentPlayer === 'X' ? player1 : player2} wins!`;
+
+const drawMessage = 'Draw!';
+const currentPlayerTurn = () => `It's ${currentPlayer === 'X' ? player1 : player2}'s turn`;
+
 statusDisplay.innerHTML = currentPlayerTurn();
- 
+
 const winningConditions = [
   [0, 1, 2],
   [3, 4, 5],
@@ -24,77 +39,24 @@ const winningConditions = [
   [0, 4, 8],
   [2, 4, 6],
 ];
- 
-// document
-//   .querySelectorAll(".cell")
-//   .forEach((cell) => cell.addEventListener("click", handleCellClick));
- 
-// fixed by Event Delegation
-// Instead of adding listener to individual child elements, add a listener to the parent element
-// then access the clicked child through event.target
- 
-document
-  .querySelector(".game--container")
-  .addEventListener("click", handleCellClick);
- 
-document
-  .querySelector(".game--restart")
-  .addEventListener("click", handleRestartGame);
- 
-function handleCellClick(clickedCellEvent) {
-  if (clickedCellEvent.target.classList.contains("cell")) {
-    const clickedCell = clickedCellEvent.target;
-    const clickedCellIndex = parseInt(clickedCell.id) - 1;
-    if (!gameActive || gameState[clickedCellIndex] !== "") return;
-    handleCellPlayed(clickedCell, clickedCellIndex);
-    handleResultValidation();
-  }
-}
- 
+
+document.querySelector('.game--container').addEventListener('click', handleCellClick);
+
+document.querySelector('.game--restart').addEventListener('click', handleRestartGame);
 function handleRestartGame() {
   gameActive = true;
-  currentPlayer = "X";
-  gameState = ["", "", "", "", "", "", "", "", ""];
-  statusDisplay.innerHTML = currentPlayerTurn();
-  document.querySelectorAll(".cell").forEach((cell) => (cell.innerHTML = ""));
-}
- 
-function handleCellPlayed(clickedCell, clickedCellIndex) {
-  gameState[clickedCellIndex] = currentPlayer;
-  clickedCell.innerHTML = currentPlayer;
-}
- 
-function handleResultValidation() {
-  let roundWon = false;
-  for (let i = 0; i < winningConditions.length; i++) {
-    const winCondition = winningConditions[i];
-    let a = gameState[winCondition[0]];
-    let b = gameState[winCondition[1]];
-    let c = gameState[winCondition[2]];
-    if (a === "" || b === "" || c === "") continue;
-    if (a === b && b === c) {
-      roundWon = true;
-      break;
-    }
-  }
-  // checking if someone won
-  if (roundWon) {
-    statusDisplay.innerHTML = winningMessage();
-    gameActive = false;
-    return;
-  }
- 
-  let roundDraw = !gameState.includes("");
-  if (roundDraw) {
-    statusDisplay.innerHTML = drawMessage;
-    gameActive = false;
-    return;
-  }
-  // keep the game going!
-  handlePlayerChange();
-}
- 
-function handlePlayerChange() {
-  currentPlayer = currentPlayer === "X" ? "O" : "X";
-  statusDisplay.innerHTML = currentPlayerTurn();
+  currentPlayer = 'X';
+  gameState = ['', '', '', '', '', '', '', '', ''];
+  document.querySelectorAll('.cell').forEach((cell) => (cell.innerHTML = ''));
+  
+  // Clear the player names
+  document.getElementById('player-1').value = '';
+  document.getElementById('player-2').value = '';
+
+  // Hide the game section and show the name input section
+  document.querySelector('.game--container').style.display = 'none';
+  document.querySelector('section').style.display = 'block';
+
+  // Clear the game status
+  statusDisplay.innerHTML = '';
 }
