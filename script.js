@@ -1,3 +1,4 @@
+let player1, player2;
 document.getElementById('submit').addEventListener('click', function() {
     player1 = document.getElementById('player-1').value;
     player2 = document.getElementById('player-2').value;
