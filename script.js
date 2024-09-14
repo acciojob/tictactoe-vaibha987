@@ -15,6 +15,7 @@ document.getElementById('submit').addEventListener('click', function() {
 
     // Display the current player's turn
     document.querySelector('.game--status').textContent = `${player1}'s turn`;
+    document.querySelector('.message').textContent = `${player1}, you're up`;
 });
 
 const statusDisplay = document.querySelector('.game--status');
