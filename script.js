@@ -1,7 +1,7 @@
 let player1, player2;
 document.getElementById('submit').addEventListener('click', function() {
-    player1 = document.getElementById('player-1').value;
-    player2 = document.getElementById('player-2').value;
+    player1 = document.getElementById('player1').value;
+    player2 = document.getElementById('player2').value;
  
     // Validate the player names
     if (player1 === '' || player2 === '') {
@@ -51,8 +51,8 @@ function handleRestartGame() {
   document.querySelectorAll('.cell').forEach((cell) => (cell.innerHTML = ''));
   
   // Clear the player names
-  document.getElementById('player-1').value = '';
-  document.getElementById('player-2').value = '';
+  document.getElementById('player1').value = '';
+  document.getElementById('player2').value = '';
 
   // Hide the game section and show the name input section
   document.querySelector('.game--container').style.display = 'none';
