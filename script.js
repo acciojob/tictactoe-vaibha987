@@ -1,4 +1,4 @@
-document.addEventListener(‘DOMContentLoaded’, () => {
+document.addEventListener('DOMContentLoaded', () => {
 
 const submitButton = document.getElementById('submit');
 
