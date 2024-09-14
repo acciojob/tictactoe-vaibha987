@@ -61,3 +61,12 @@ function handleRestartGame() {
   // Clear the game status
   statusDisplay.innerHTML = '';
 }
+function handleCellClick(clickedCellEvent) {
+  if (clickedCellEvent.target.classList.contains('cell')) {
+    const clickedCell = clickedCellEvent.target;
+    const clickedCellIndex = parseInt(clickedCell.id) - 1;
+    if (!gameActive || gameState[clickedCellIndex] !== '') return;
+    handleCellPlayed(clickedCell, clickedCellIndex);
+    handleResultValidation();
+  }
+}
